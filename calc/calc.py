@@ -10,7 +10,7 @@ class Calc:
         return a - b
 
     def mul(self, *args):
-        def mul2(a, b):
-            return a * b
+        return reduce(lambda x, y: x * y, args)
 
-        return reduce(mul2, args)
+    def div(self, a, b):
+        return a / b
