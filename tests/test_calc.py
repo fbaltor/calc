@@ -85,3 +85,67 @@ def test_mul_by_zero_raises_exception():
 
     with pytest.raises(ValueError):
         c.mul(3, 0)
+
+
+def test_avg_work():
+    c = Calc()
+
+    res = c.avg([2, 5, 12, 98])
+
+    assert res == 29.25
+
+
+def test_avg_upper_threshold():
+    c = Calc()
+
+    res = c.avg([2, 5, 12, 98], ut=90)
+
+    assert res == c.avg([2, 5, 12])
+
+
+def test_avg_lower_threshold():
+    c = Calc()
+
+    res = c.avg([2, 5, 12, 98], lt=3)
+
+    assert res == c.avg([5, 12, 98])
+
+
+def test_avg_upper_threshold_not_included():
+    c = Calc()
+
+    res = c.avg([2, 5, 12, 98], ut=98)
+
+    assert res == c.avg([2, 5, 12, 98])
+
+
+def test_avg_lower_threshold_not_included():
+    c = Calc()
+
+    res = c.avg([2, 5, 12, 98], lt=2)
+
+    assert res == c.avg([2, 5, 12, 98])
+
+
+def test_avg_empty_list():
+    c = Calc()
+
+    res = c.avg([])
+
+    assert res == 0
+
+
+def test_avg_empty_after_outlier_removal():
+    c = Calc()
+
+    res = c.avg([1, 2, 5], lt=3, ut=4)
+
+    assert res == 0
+
+
+def test_avg_removal_of_empty_list():
+    c = Calc()
+
+    res = c.avg([], lt=2, ut=4)
+
+    assert res == 0
